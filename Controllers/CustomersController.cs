@@ -30,17 +30,17 @@ namespace NorthwindRestApi.Controllers
         [HttpGet("{id}")]
         public ActionResult GetOneCustomerById(string id)
         {
-            try 
-            { 
+            try
+            {
                 var asiakas = db.Customers.Find(id);
                 if (asiakas != null)
                 {
-                return Ok(asiakas);
+                    return Ok(asiakas);
                 }
                 else
                 {
-                //return BadRequest("Asiakas id:llä " + id + " ei löydy asiakasta."); - perinteinen
-                return NotFound($"Asiakas id:llä {id} ei löydy asiakasta."); // STRING INTERPOLATION -tapa verrattuna perinteiseen
+                    //return BadRequest("Asiakas id:llä " + id + " ei löydy asiakasta."); - perinteinen
+                    return NotFound($"Asiakas id:llä {id} ei löydy asiakasta."); // STRING INTERPOLATION -tapa verrattuna perinteiseen
                 }
             }
             catch (Exception e)
@@ -52,7 +52,7 @@ namespace NorthwindRestApi.Controllers
 
         // Uuden asiakkaan lisääminen
         [HttpPost]
-        public ActionResult AddNew([FromBody] Customer cust) 
+        public ActionResult AddNew([FromBody] Customer cust)
         {
             try
             {
@@ -68,4 +68,5 @@ namespace NorthwindRestApi.Controllers
 
 
         }
+    }
 }
