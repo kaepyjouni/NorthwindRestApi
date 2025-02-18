@@ -16,6 +16,15 @@ builder.Services.AddDbContext<NorthwindOriginalContext>(options => options.UseSq
     // builder.Configuration.GetConnectionString("pilvi/azure") toinen vaihtoehto
     ));
 
+// Cors Määritys
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("all",
+        builder => builder.AllowAnyOrigin()
+        .AllowAnyMethod()
+        .AllowAnyHeader());
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -26,6 +35,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors("all");
 
 app.UseAuthorization();
 

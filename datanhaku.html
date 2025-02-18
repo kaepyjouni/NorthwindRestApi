@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <title>Customers</title>
+</head>
+
+<body style="margin-left: 20%;">
+
+    <h1>Customers</h1>
+
+    <div id="sisältö"></div>
+    
+<script>
+
+document.getElementById("sisältö").innerHTML = "<h4>Ladataan...</h4>"
+
+let x = "<table><thead><th>Company Name</th><th>Country</th></thead><tbody>"
+
+
+fetch('https://localhost:7014/api/Customers')
+  .then(jsonResponse => jsonResponse.json()) // muutetaan json data javascript muotoon
+  .then(oliot => oliot.map(c => { // loopataan läpi oliot
+    x += `<tr><td>${c.companyName}</td><td>${c.country}</td></tr>`
+   
+    }
+  ))
+
+  setTimeout(() => {
+    x += `</tbody></table>`
+  document.getElementById("sisältö").innerHTML = x}
+  , 500 )
+
+
+</script>
+
+</body>
+
+
+</html>

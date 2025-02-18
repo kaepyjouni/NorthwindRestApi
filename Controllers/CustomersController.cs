@@ -80,6 +80,7 @@ namespace NorthwindRestApi.Controllers
         }
 
 
+        // Asiakkaan poisto
         [HttpDelete("{id}")]
         public ActionResult Delete(string id)
         {
@@ -130,7 +131,7 @@ namespace NorthwindRestApi.Controllers
         }
 
 
-        //Hakee nimen osalla
+        // Haku nimen osalla
         [HttpGet("companyname/{cname}")]
 
         public ActionResult GetByName(string cname)
@@ -138,6 +139,24 @@ namespace NorthwindRestApi.Controllers
             try
             {
                 var cust = db.Customers.Where(c => c.CompanyName.Contains(cname)); // <--- toimiva ja hyvä linq kysely nykyisin
+                // var cust = from c in db.Customers where c.CompanyName.Contains(cname) select c; <--- sama mutta "vanhaa tyylii"
+                // var cust = db.Customers.Where(c => c.CompanyName == cname); <--- perfect match eli koko hakusana pitää osaa kirjottaa
+                return Ok(cust);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        // Haku kaupungilla 
+        [HttpGet("city/{ciname}")]
+
+        public ActionResult GetByCity(string ciname)
+        {
+            try
+            {
+                var cust = db.Customers.Where(c => c.City.Contains(ciname)); // <--- toimiva ja hyvä linq kysely nykyisin
                 // var cust = from c in db.Customers where c.CompanyName.Contains(cname) select c; <--- sama mutta "vanhaa tyylii"
                 // var cust = db.Customers.Where(c => c.CompanyName == cname); <--- perfect match eli koko hakusana pitää osaa kirjottaa
                 return Ok(cust);
